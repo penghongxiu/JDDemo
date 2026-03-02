@@ -4,7 +4,6 @@ import {ConfigProvider} from 'antd';
 import {Provider} from 'react-redux';
 import store from 'src/store';
 import Routes from './router';
-import 'src/css/global.scss'
 
 
 const App: React.FC = () => {

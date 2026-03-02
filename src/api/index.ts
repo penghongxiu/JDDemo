@@ -5,7 +5,7 @@ import { getToken, AI_TOKEN_KEY } from './token';
 import { debounce } from 'src/common/utils/util';
 axios.defaults.withCredentials = true;
 const api = axios.create({
-	baseURL: `${import.meta.env.VITE_BASE_PATH || '/'}`,
+	baseURL: '/',
 	timeout: 100000,
 	headers: {
 		'x-requested-with': 'XMLHttpRequest',

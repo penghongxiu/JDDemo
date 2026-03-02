@@ -1,5 +1,5 @@
 import React from 'react';
-import 'src/css/components/Loading/index.scss';
+import 'src/component/Loading/index.scss';
 
 interface LoadingProps {
     /**
