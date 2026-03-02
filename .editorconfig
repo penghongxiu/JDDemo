@@ -1,0 +1,23 @@
+# 表明这是顶级的配置文件
+root = true
+
+# 对所有文件应用以下规则
+[*]
+# 使用 Unix 风格的换行符
+end_of_line = lf
+# 使用 UTF-8 编码
+charset = utf-8
+# 使用 4 个空格缩进
+indent_style = space
+indent_size = 2
+
+# 删除行尾的空白字符
+trim_trailing_whitespace = true
+# 确保文件以一个换行符结束
+insert_final_newline = true
+
+
+# 对 .md 文件应用特定的规则
+[*.md]
+# 不删除行尾的空白字符
+trim_trailing_whitespace = false

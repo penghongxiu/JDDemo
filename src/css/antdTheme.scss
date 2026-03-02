@@ -1,0 +1,84 @@
+/* 去除输入框获取焦点时的阴影 */
+.ant-input-number-outlined:focus-within,.ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active,.ant-input:focus,.ant-calendar-picker:focus .ant-calendar-picker-input:not(.ant-input-disabled),.ant-cascader-picker:focus .ant-cascader-input {
+    box-shadow: none;
+}
+
+/*按钮样式重置*/
+.ant-btn-primary{
+    outline: none !important;
+}
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+    background: var(--color-text-link-hover);
+}
+
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active {
+    background: #108982;
+}
+
+.ant-btn-primary:disabled, .ant-btn-primary.ant-btn-disabled {
+    border-color: var(--color-default);
+    background: var(--color-default);
+    color: var(--color-white);
+    opacity: 0.6;
+}
+
+.ant-btn-default:disabled, .ant-btn-default.ant-btn-disabled {
+    border-color: #EBEDF0;
+    background: #F7F8FA;
+    color: #C8C9CC;
+    img {
+        @include svg-color(#C8C9CC);
+        //filter: drop-shadow(50px 0 #C8C9CC);
+        //transform: translateX(-50px);
+        //fill: #C8C9CC;
+    }
+}
+.ant-btn {
+    overflow: hidden;
+    img {
+        display: flex;
+    }
+}
+
+.ant-btn-link {
+    color: var(--color-default);
+
+    &:not(:disabled):not(.ant-btn-disabled):hover {
+        color: var(--color-text-link-hover);
+    }
+}
+
+.tooltip-white {
+    .ant-tooltip-inner {
+        color: var(--color-text);
+    }
+}
+.ant-modal.ant-modal-confirm.ant-modal-confirm-confirm {
+    .ant-modal-content {
+        padding: 20px;
+    }
+
+    .ant-modal-confirm-content {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        color: var(--color-text);
+        min-height: 40px;
+    }
+
+    .ant-modal-confirm-btns {
+        margin-top: 20px;
+
+        .ant-btn {
+            padding: 5px 20px;
+        }
+    }
+}
+
+.ant-radio-wrapper {
+    font-size: 16px;
+}
+
+.ant-popover,.ant-tooltip {
+    font-family: "Roboto", Arial, "Microsoft YaHei", sans-serif;
+}

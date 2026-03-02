@@ -1,0 +1,117 @@
+/*一行省略号*/
+@mixin cutxt {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+/*多行省略号(默认两行)*/
+@mixin mult-cutxt ($line: 2) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}
+
+/*水平垂直居中 不固定宽高*/
+@mixin hv-align-auto ($maxwidth, $paddingTop: 100%) {
+    width: 100%;
+    max-width: #{$maxwidth};
+    //margin: 0 auto;
+
+    .hv-align-inner {
+        display: block;
+        width: 100%;
+        padding-top: $paddingTop;
+        position: relative;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+
+}
+
+/*animate*/
+@mixin transition-animate($name, $transitions, $time) {
+    transition: $name $time ease-out $transitions;
+    -moz-transition: $name $time ease-out $transitions;
+    -webkit-transition: $name $time ease-out $transitions;
+    -o-transition: $name $time ease-out $transitions;
+}
+
+/*Scrollbar*/
+
+@mixin scroll-bar(
+  $width: 5px, 
+  $vertical-height: 40px, 
+  $horizontal-height: 5px, 
+  $thumb-background: #EBEDF0, 
+  $track-background: transparent
+) {
+    /** firefox 浏览器滚动条定制*/
+    @supports(-moz-appearance:none) {
+        scrollbar-color: $thumb-background transparent;
+        scrollbar-width: thin;
+    }
+    /* 通用滚动条样式 */
+    &::-webkit-scrollbar {
+        z-index: 11;
+        width: $width; /* 纵向滚动条宽度 */
+        height: $horizontal-height; /* 横向滚动条高度 */
+    }
+    /* 纵向滚动条 */
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background: $thumb-background;
+    }
+
+    /* 横向滚动条的高度设置 */
+    &::-webkit-scrollbar:horizontal {
+        height: $horizontal-height; /* 单独为横向滚动条设置合适的高度 */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $track-background;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: $track-background;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+        background: $track-background;
+    }
+}
+
+@function vw($px) {
+    @return calc(#{$px} / var(--width) * 100vw);
+}
+@mixin hover-overlay {
+    &:hover {
+        &::before {
+            content: "";
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+/*更改svg图片颜色 父级样式要加overflow: hidden;*/
+@mixin svg-color($color) {
+    filter: drop-shadow(50px 0 #{$color});
+    transform: translateX(-50px);
+    fill: #{$color};
+}

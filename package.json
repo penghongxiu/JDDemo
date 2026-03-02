@@ -1,0 +1,52 @@
+{
+  "name": "App",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=16.15.0 <=17.9.1",
+    "npm": ">=8.3.0"
+  },
+  "scripts": {
+    "dotenv:dev": "dotenv -v NODE_ENV=development -c development --",
+    "dotenv:prod": "dotenv -v NODE_ENV=production -c production --",
+    "dev": "npm run dotenv:dev -- vite",
+    "build": "npm run dotenv:prod -- vite build",
+    "watch": "npm run dotenv:prod -- vite build -w",
+    "preview": "npm run dotenv:prod -- vite preview --mode=preview"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "@reduxjs/toolkit": "^1.9.5",
+    "antd": "^5.24.8",
+    "axios": "^1.8.4",
+    "copy-to-clipboard": "^3.3.3",
+    "crypto-js": "^4.2.0",
+    "js-cookie": "^3.0.5",
+    "qs": "6.11.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-lazy-load-image-component": "^1.6.2",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.14.1"
+  },
+  "devDependencies": {
+    "@cherry/vite-plugin-serve": "^1.2.5",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20.4.2",
+    "@types/qs": "^6.9.7",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.6",
+    "@types/react-lazy-load-image-component": "^1.6.4",
+    "@vitejs/plugin-react": "^4.0.0",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.1.0",
+    "fast-glob": "^3.3.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.63.6",
+    "typescript": "^5.1.6",
+    "vite": "^4.5.3",
+    "vite-bundle-analyzer": "^0.10.3",
+    "vite-plugin-imp": "^2.4.0"
+  }
+}

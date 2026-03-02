@@ -1,0 +1,1 @@
+{"v":"1","data":[{"id":"d1","matchUrl":"*","rules":[{"type":"normalOverride","match":"https://127.0.0.1:3004/aim/menta/dist/*_**.js","replace":"https://10.10.120.103:5124/src/*.tsx","on":true}],"on":true}]}
