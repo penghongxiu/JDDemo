@@ -4,105 +4,48 @@ import React from "react";
 import "@nutui/nutui-react/dist/style.css";
 import LogoSection from "src/component/LogoSection/index";
 import CounterSection from "src/component/CounterSection/index";
-// import SwiperSection from "src/component/SwiperSection/index";
+import SwiperSection from "src/component/SwiperSection/index";
 import "./index.scss";
 
 
-export interface SwiperAItem {
-  icon: string;
+interface BannerItem extends SwiperItem {
+  id: number;
+  img: string;
   title: string;
-  desc: string;
-  value: string;
-  trend: number;
 }
 
-export interface SwiperBItem {
-  tag: string;
-  date: string;
-  title: string;
-  bg: string;
-  avatars: string[];
-  count: number;
-}
-// ==================== Swiper A slide：数据统计卡 ====================
-const SlideTypeA: React.FC<{ item: SwiperAItem }> = ({ item }) => (
-  <div className="slide-a">
-    <div className="slide-a-top">
-      <span className="slide-a-icon">{item.icon}</span>
-      <span className={`slide-a-trend ${item.trend > 0 ? "up" : "down"}`}>
-        {item.trend > 0 ? "▲" : "▼"} {Math.abs(item.trend)}%
-      </span>
-    </div>
-    <div className="slide-a-middle">
-      <div className="slide-a-title">{item.title}</div>
-      <div className="slide-a-desc">{item.desc}</div>
-    </div>
-    <div className="slide-a-bottom">
-      <span className="slide-a-number">{item.value}</span>
-    </div>
-  </div>
-);
-
-// ==================== Swiper B slide：项目卡片 ====================
-const SlideTypeB: React.FC<{ item: SwiperBItem }> = ({ item }) => (
-  <div className="slide-b" style={{ background: item.bg }}>
-    <div className="slide-b-header">
-      <span className="slide-b-tag">{item.tag}</span>
-      <span className="slide-b-date">{item.date}</span>
-    </div>
-    <div className="slide-b-title">{item.title}</div>
-    <div className="slide-b-footer">
-      <div className="slide-b-avatars">
-        {item.avatars.map((color, i) => (
-          <div
-            key={i}
-            className="slide-b-avatar"
-            style={{
-              background: color,
-              marginLeft: i > 0 ? "-7px" : 0,
-              zIndex: item.avatars.length - i,
-            }}
-          />
-        ))}
-      </div>
-      <span className="slide-b-count">{item.count} members</span>
-    </div>
-  </div>
-);
-
-// ==================== 静态数据 ====================
-const swiperAData: SwiperAItem[] = [
-  { icon: "📈", title: "Revenue", desc: "Monthly income", value: "$12,480", trend: 12.5 },
-  { icon: "👥", title: "Users",   desc: "Active users",   value: "8,240",   trend: 8.3  },
-  { icon: "🛒", title: "Orders",  desc: "Total orders",   value: "3,120",   trend: -2.1 },
-  { icon: "⭐", title: "Rating",  desc: "Avg score",      value: "4.9",     trend: 5.0  },
+const bannerList: BannerItem[] = [
+  { id: 1, img: "/src/assets/img/single/image1.png", title: "HUAWEI Mate 80 麒麟9020 16GB+512GB雪域白 第二代红枫影像 鸿蒙AI 超可靠玄武架构 【春晚直播手机】" ,price: 100,isSelfRun: true },
+  { id: 2, img: "/src/assets/img/single/image2.png", title: "小米（MI）小米 17 Pro 妙享背屏 徕卡光影大师 第五代 骁龙 8 至尊版 白色 12GB+256GB 5G手机" ,price: 200 ,isSelfRun: true},
+  { id: 3, img: "/src/assets/img/single/image3.png", title: "小米（MI）REDMI Turbo 5 Max 天玑9500s 9000mAh大电池 1.5K阳光屏 12+256祥云白 小米红米5G手机" ,price: 300,isSelfRun: true },
+  { id: 1, img: "/src/assets/img/single/image4.png", title: "一加 Ace 6 12GB+256GB 闪白 oppo 骁龙 8 至尊版 165Hz 超高刷护眼电竞屏 游戏电竞5G手机 国家补贴" ,price: 400 ,isSelfRun: true},
+  { id: 2, img: "/src/assets/img/single/image5.png", title: "vivo X300 Pro 16GB+512GB 旷野棕 蔡司2亿APO超级长焦 蓝图影像双芯 5年持久流畅OriginOS 6 AI手机" ,price: 500 ,isSelfRun: true},
+  { id: 3, img: "/src/assets/img/single/image6.png", title: "APPLE 17 Pro 妙享背屏 徕卡光影大师 第五代 骁龙 8 至尊版 白色 12GB+256GB 5G手机" ,price: 600 ,isSelfRun: true},
 ];
+export interface SwiperItem {
+  id: string | number;
+  [key: string]: any;
+}
+// ===== 示例数据：四宫格模式 =====
+interface ProductItem extends SwiperItem {
+  id: number;
+  img: string;
+  name: string;
+}
 
-const swiperBData: SwiperBItem[] = [
-  {
-    tag: "Design",
-    date: "Dec 20",
-    title: "Brand Identity Redesign",
-    bg: "linear-gradient(135deg, rgba(102,126,234,0.25), rgba(118,75,162,0.25))",
-    avatars: ["#667eea", "#764ba2", "#f093fb"],
-    count: 5,
-  },
-  {
-    tag: "Dev",
-    date: "Dec 22",
-    title: "API v3 Integration",
-    bg: "linear-gradient(135deg, rgba(79,172,254,0.25), rgba(0,242,254,0.25))",
-    avatars: ["#4facfe", "#00f2fe", "#43e97b"],
-    count: 8,
-  },
-  {
-    tag: "Marketing",
-    date: "Dec 25",
-    title: "Q4 Campaign Launch",
-    bg: "linear-gradient(135deg, rgba(240,147,251,0.25), rgba(245,87,108,0.25))",
-    avatars: ["#f093fb", "#f5576c"],
-    count: 3,
-  },
+const productList: ProductItem[] = [
+  { id: 1, img: "/src/assets/img/grid/image1.png", name: "Vivo" },
+  { id: 2, img: "/src/assets/img/grid/image2.png", name: "nubia" },
+  { id: 3, img: "/src/assets/img/grid/image3.png", name: "ONEPLUS" },
+  { id: 4, img: "/src/assets/img/grid/image4.png", name: "iQOO" },
+  { id: 5, img: "/src/assets/img/grid/image5.png", name: "小米" },
+  { id: 6, img: "/src/assets/img/grid/image6.png", name: "红魔" },
+  { id: 7, img: "/src/assets/img/grid/image7.png", name: "MEIZU" },
+  { id: 8, img: "/src/assets/img/grid/image8.png", name: "APPLE" },
+  { id: 9, img: "/src/assets/img/grid/image9.png", name: "MOTO" },
+  { id: 10, img: "/src/assets/img/grid/image10.png", name: "photo" },
+  { id: 11, img: "/src/assets/img/grid/image11.png", name: "OPPO" },
+  { id: 12, img: "/src/assets/img/grid/image12.png", name: "三星" },
 ];
 
 // ==================== 主组件 ====================
@@ -133,38 +76,56 @@ const AdaptiveCard: React.FC = () => {
         </div>
       </div>
 
-      {/* 横向分割线 */}
-      <div className="divider-h" />
-
       {/* ====== 下半区域 ====== */}
       <div className="card-bottom">
         {/* 左下角：Swiper A */}
-        <div className="cell cell-swiper">
-          <p className="swiper-label">📊 Analytics</p>
-          {/* <SwiperSection<SwiperAItem>
-            items={swiperAData}
-            autoPlay={true}
-            interval={2500}
-            renderSlide={(item, index) => (
-              <SlideTypeA key={index} item={item} />
+        <div className="cell cell-swiper1">
+          <SwiperSection<ProductItem>
+            items={productList}
+            mode="grid"
+            autoPlay={4000}
+            loop={true}
+            showIndicator={true}
+            showArrows={false}
+            gridGap={6}
+            renderItem={(item) => (
+              <div className="product-card">
+                <img src={item.img} alt={item.name} />
+              </div>
             )}
-          /> */}
+          />
         </div>
 
-        {/* 纵向分割线 */}
-        <div className="divider-v" />
 
         {/* 右下角：Swiper B */}
-        <div className="cell cell-swiper">
-          <p className="swiper-label">🗂 Projects</p>
-          {/* <SwiperSection<SwiperBItem>
-            items={swiperBData}
-            autoPlay={true}
-            interval={3500}
-            renderSlide={(item, index) => (
-              <SlideTypeB key={index} item={item} />
+        <div className="cell cell-swiper2">
+          <SwiperSection<BannerItem>
+            items={bannerList}
+            mode="single"
+            autoPlay={3000}
+            loop={true}
+            showIndicator={true}
+            renderItem={(item) => (
+              <div className="banner-slide">
+                <img src={item.img} alt={item.title} />
+                <div className="banner-title">{item.title}</div>
+                
+                {/* 【修改】这里的容器只负责承载文字，去掉背景样式 */}
+                <div className="float-price-content">
+                  <div className='float-left'>
+                  <span className="float-price-label">¥</span>
+                  <span className="float-price-value">{item.price}111</span>
+                  </div>
+                  
+                </div>
+              </div>
             )}
-          /> */}
+          />
+            {/* 【新增】固定不动的价格背景框 */}
+          <div className="static-price-frame">
+             {/* 这里只放样式，不放内容 */}
+             <span className='float-right'>+</span>
+          </div>
         </div>
       </div>
     </div>

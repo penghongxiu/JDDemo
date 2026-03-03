@@ -1,0 +1,110 @@
+// src/components/SwiperSection/index.scss
+
+.swiper-section {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  // swiper 主体
+  .swiper-main {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    width: 100%;
+    height: 100%;
+  }
+
+  // ===== single 模式：单张占满 =====
+ .single-layout {
+  position: relative; // 必须设置，作为标签定位的基准
+  width: 100%;
+  height: 100%;
+
+  .tag-self-run {
+    position: absolute;
+    top: 4px;    // 距离顶部距离
+    left: 8px;   // 距离左侧距离
+    z-index: 10; // 确保在图片之上
+    
+    background: #fa0105; // 红色背景
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius:4px; // 这种圆角更有设计感（左上和右下圆角）
+    font-weight: bold;
+    line-height: 1.2;
+    pointer-events: none; // 防止挡住滑动手势
+    
+    // 如果想要更精致的渐变红色
+    // background: linear-gradient(135deg, #ff7875 0%, #ff4d4f 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+  // ===== grid 模式：四宫格 =====
+  .grid-layout {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+
+  .grid-item {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;
+
+    // 内部图片/内容自适应
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &--empty {
+      background: rgba(255, 255, 255, 0.03);
+    }
+  }
+
+  // ===== 自定义指示器 =====
+  .custom-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  .custom-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .custom-bullet-active {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: red;
+  }
+}

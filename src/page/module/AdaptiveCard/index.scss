@@ -1,14 +1,13 @@
-/* src/components/AdaptiveCard/index.css */
+// src/components/AdaptiveCard/index.scss  ← 改成 .scss
 
 /* ===== 卡片主体 ===== */
 .adaptive-card {
   width: 100%;
   height: 100%;
-  background:#007aff;
-  border-radius: 24px;
+  background: #007aff;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   position: relative;
   box-shadow:
     0 30px 60px rgba(0, 0, 0, 0.45),
@@ -61,59 +60,39 @@
 }
 
 @keyframes blobMove {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(15px, 15px) scale(1.12); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(15px, 15px) scale(1.12);
+  }
 }
 
-/* ===== 上半 / 下半 容器 ===== */
+/* ===== 上半容器 ===== */
 .card-top {
-  flex: 0 0 44%;
+  flex: 0 0 30%; // ✅ 44% → 30%，给下面更多空间
   display: flex;
   align-items: stretch;
-  padding: 18px 18px 0;
+  padding: 14px 14px 0;
   gap: 14px;
   position: relative;
   z-index: 1;
+  margin: 2px;
 }
 
+/* ===== 下半容器 ===== */
 .card-bottom {
-  flex: 1;
+  flex: 1; // ✅ 占满剩余空间
   display: flex;
   align-items: stretch;
-  padding: 0 18px 18px;
+  padding: 0 5px 5px;
   position: relative;
   z-index: 1;
-  min-height: 0;
+  height: 200px; // ✅ 关键，配合 flex:1 和 padding-bottom 让它自适应高度
 }
 
-/* ===== 分割线 ===== */
-.divider-h {
-  height: 1px;
-  margin: 12px 18px;
-  flex-shrink: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 20%,
-    rgba(255, 255, 255, 0.1) 80%,
-    transparent 100%
-  );
-  position: relative;
-  z-index: 1;
-}
 
-.divider-v {
-  width: 1px;
-  margin: 8px 14px;
-  flex-shrink: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 20%,
-    rgba(255, 255, 255, 0.1) 80%,
-    transparent 100%
-  );
-}
 
 /* ===== 单元格 ===== */
 .cell {
@@ -121,6 +100,7 @@
   overflow: hidden;
   position: relative;
   min-width: 0;
+  min-height: 0; // ✅ 加上，防止撑破
 }
 
 .cell-logo {
@@ -136,168 +116,148 @@
   flex: 0.8;
 }
 
-.cell-swiper {
+.cell-swiper1 {
+  flex: 1;
   display: flex;
+  flex-direction: column;
+  min-height: 0; // ✅ 关键
+  overflow: visible; // ✅ 让指示器显示
+  padding-bottom: 10px; // ✅ 给指示器留空间
+  background: white;
+  border-radius: 10px;
+  margin: 2px;
+}
+
+.cell-swiper2 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   min-height: 0;
+  overflow: visible;
+  padding-bottom: 10px;
+  background: linear-gradient(to bottom, #add8e6, #ffffff);
+  background-size: cover;
+  border-radius: 10px;
+  padding-top: 5px;
+  margin: 2px;
 }
 
-/* ===== Swiper 标签 ===== */
-.swiper-label {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 8px 0 5px 2px;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-/* ===== Slide A：数据统计卡 ===== */
-.slide-a {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px 12px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.03) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 12px;
-  box-sizing: border-box;
-}
-
-.slide-a-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.slide-a-icon {
-  font-size: 22px;
-  line-height: 1;
-}
-
-.slide-a-trend {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 20px;
-}
-
-.slide-a-trend.up {
-  color: #34d399;
-  background: rgba(52, 211, 153, 0.15);
-}
-
-.slide-a-trend.down {
-  color: #f87171;
-  background: rgba(248, 113, 113, 0.15);
-}
-
-.slide-a-middle {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 6px 0;
-}
-
-.slide-a-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2px;
-}
-
-.slide-a-desc {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.38);
-}
-
-.slide-a-bottom {
-  display: flex;
-  align-items: flex-end;
-}
-
-.slide-a-number {
-  font-size: clamp(20px, 3vw, 28px);
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-
-/* ===== Slide B：项目卡片 ===== */
-.slide-b {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  box-sizing: border-box;
-}
-
-.slide-b-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.slide-b-tag {
-  font-size: 10px;
-  font-weight: 600;
-  color: #a78bfa;
-  background: rgba(167, 139, 250, 0.16);
-  padding: 2px 8px;
-  border-radius: 20px;
-  letter-spacing: 0.3px;
-}
-
-.slide-b-date {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.38);
-}
-
-.slide-b-title {
-  font-size: clamp(12px, 1.8vw, 15px);
-  font-weight: 600;
-  color: #ffffff;
-  line-height: 1.35;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding: 6px 0;
-}
-
-.slide-b-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.slide-b-avatars {
-  display: flex;
-  align-items: center;
-}
-
-.slide-b-avatar {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+.cell-swiper2 {
   position: relative;
-  flex-shrink: 0;
+  overflow: hidden;
+
+ .static-price-frame {
+  position: absolute;
+  bottom: 15px;
+  right: 12px; // 假设距离右侧边缘 12px
+  // z-index: 10; // 确保在 Swiper 之上
+  background: linear-gradient(to right, #196cd2, #8ec1ea);
+  width: 150px;
+  height: 30px;
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  pointer-events: none;
+  padding: 0 4px;
+
+  // --- 关键新增：使用 Flex 布局 ---
+  display: flex;
+  justify-content: flex-end; // 水平靠右对齐
+  align-items: center;      // 垂直居中对齐
+  box-sizing: border-box;    // 确保 padding 不会撑大 130px 的宽度
+
+  .float-right {
+    color: white;
+    font-size: 20px; // 建议减小一点，因为容器高度只有 30px
+    font-weight: bold;
+    line-height: 1;  // 消除行高带来的多余边距
+  }
 }
 
-.slide-b-count {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.45);
+
+  .float-price-content {
+    position: absolute;
+    bottom: 5px;
+    width: 130px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+
+    .float-price-label {
+      color: white;
+      font-size: 12px;
+    }
+
+
+    .float-price-value {
+      color: white;
+      font-weight: bold;
+      font-size: 23px;
+    }
+
+
+  }
+}
+
+/* ===== 单张 Banner slide ===== */
+.banner-slide {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 65%;
+    height: 65%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .banner-title {
+    position: absolute;
+    width: 90%;
+    bottom: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    white-space: nowrap; // 强制不换行
+    overflow: hidden; // 超出部分隐藏
+    text-overflow: ellipsis; // 显示省略号
+  }
+}
+
+/* ===== 四宫格商品卡片 ===== */
+.product-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    flex: 1;
+    object-fit: cover;
+    display: block;
+    min-height: 0;
+  }
+
+  .product-info {
+    padding: 4px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .product-name {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+
 }
