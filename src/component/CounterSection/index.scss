@@ -1,0 +1,63 @@
+/* src/components/CounterSection/index.css */
+.counter-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 10px;
+}
+
+
+/* 数字内容 */
+.counter-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.counter-number {
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+  line-height: 1;
+}
+
+.number-value {
+  font-size:50px;
+  font-weight: 800;
+  color: #eb0c0c;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 3px;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
+}
+
+.number-suffix {
+  font-size: 15px;
+  font-weight: 600;
+  color: #eb0c0c;
+  margin-bottom: 4px;
+}
+
+.counter-number.finished .number-value {
+  animation: numPulse 0.5s ease forwards;
+}
+
+@keyframes numPulse {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.18); color: #a78bfa; text-shadow: 0 0 30px rgba(167,139,250,0.6); }
+  100% { transform: scale(1); }
+}
+
+.counter-label {
+  font-size: clamp(8px, 1vw, 11px);
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
