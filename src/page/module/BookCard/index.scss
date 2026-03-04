@@ -1,0 +1,138 @@
+// src/module/BookCard/index.scss
+
+.book-wrapper {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  flex-shrink: 0;
+}
+
+.book-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== 每张卡片 ===== */
+.stack-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    transform  0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter     0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== 翻出动画 ===== */
+.card-exit {
+  animation: flipOut 0.7s ease-in forwards;
+  transition: none !important;
+  pointer-events: none;
+}
+
+@keyframes flipOut {
+  0% {
+    transform: perspective(800px) rotateY(0deg) translateX(0);
+    opacity: 1;
+  }
+  30% {
+    transform: perspective(800px) rotateY(-30deg) translateX(-5%);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(800px) rotateY(-110deg) translateX(-30%) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* ===== 翻入动画 ===== */
+.card-enter {
+  animation: flipIn 0.7s ease-out forwards;
+  transition: none !important;
+  pointer-events: none;
+}
+
+@keyframes flipIn {
+  0% {
+    transform: perspective(800px) rotateY(110deg) translateX(30%) scale(0.8);
+    opacity: 0;
+  }
+  70% {
+    transform: perspective(800px) rotateY(-10deg) translateX(-2%);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(800px) rotateY(0deg) translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ===== 右上角书签 ===== */
+.page-tabs {
+  position: absolute;
+  // ✅ 紧贴卡片右边缘，露出去
+  top: 16px;
+  right: -32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+//   z-index: 999;
+}
+
+.page-tab {
+  position: relative;
+  width: 32px;
+  height: 40px;
+  border: none;
+  border-radius: 0;
+  background: var(--tab-color);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+  opacity: 0.7;
+
+  // ✅ 每个标签之间加 1px 分割线
+  & + .page-tab {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  // ✅ 第一个标签右上圆角
+  &:first-child {
+    border-radius: 0 8px 0 0;
+  }
+
+  // ✅ 最后一个标签右下圆角
+  &:last-child {
+    border-radius: 0 0 8px 0;
+  }
+
+  &.active {
+    opacity: 1;
+    // ✅ 激活时宽度变大，更突出
+    width: 38px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
+    font-size: 13px;
+  }
+
+  &:hover:not(:disabled):not(.active) {
+    opacity: 0.9;
+    width: 35px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

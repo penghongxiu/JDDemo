@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import AdaptiveCard from "./module/AdaptiveCard";
+import BookCard from "./module/BookCard";
+import "./index.scss";
 
 
 const App: React.FC = () => {
@@ -9,7 +10,7 @@ const App: React.FC = () => {
 
     return (
         <div className="index-wrap">
-           <AdaptiveCard />
+           <BookCard />
         </div>
     );
 }
