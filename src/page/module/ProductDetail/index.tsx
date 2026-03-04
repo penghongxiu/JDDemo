@@ -1,16 +1,11 @@
-// src/page/module/ProductDetail/index.tsx
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { ProductDetailState } from "../../types";
+
 import "./index.scss";
 
-interface ProductDetailState {
-  id: number;
-  img: string;
-  title?: string;
-  name?: string;
-  price?: number;
-  isSelfRun?: boolean;
-}
+
 
 const ProductDetail: React.FC = () => {
   const location = useLocation();

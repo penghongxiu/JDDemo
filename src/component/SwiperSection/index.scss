@@ -8,12 +8,37 @@
     height: 100%;
   }
 
-  .swiper-slide {
+
+  // 四格布局
+  .grid-layout {
     width: 100%;
     height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    box-sizing: border-box;
+    padding: 4px;
+
+    .grid-item {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      &--empty {
+        background: rgba(255, 255, 255, 0.03);
+      }
+    }
   }
 
-  // ===== single 模式 =====
+  // 单张图片布局
   .single-layout {
     position: relative;
     width: 100%;
@@ -36,36 +61,7 @@
     }
   }
 
-  // ===== grid 模式 =====
-  .grid-layout {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    box-sizing: border-box;
-    padding: 4px;
-  }
-
-  .grid-item {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 8px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    &--empty {
-      background: rgba(255, 255, 255, 0.03);
-    }
-  }
-
-  // ===== 覆盖 swiper 默认 pagination 样式 =====
+  //swiper 默认 pagination 样式修改
   .swiper-pagination {
     display: flex;
     align-items: center;

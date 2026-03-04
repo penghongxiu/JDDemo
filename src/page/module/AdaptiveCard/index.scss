@@ -1,319 +1,211 @@
-// src/components/AdaptiveCard/index.scss  ← 改成 .scss
-
-/* ===== 卡片主体 ===== */
 .adaptive-card {
   width: 100%;
   height: 100%;
   background: var(--card-primary);
-  ;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
 
-/* ===== 背景光晕 ===== */
-.card-bg-deco {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: 24px;
-  z-index: 0;
-}
-
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(45px);
-  opacity: 0.13;
-}
-
-.blob-1 {
-  width: 220px;
-  height: 220px;
-  background: #667eea;
-  top: -70px;
-  right: -50px;
-  animation: blobMove 7s ease-in-out infinite alternate;
-}
-
-.blob-2 {
-  width: 160px;
-  height: 160px;
-  background: #f093fb;
-  bottom: -50px;
-  left: -40px;
-  animation: blobMove 9s ease-in-out infinite alternate-reverse;
-}
-
-.blob-3 {
-  width: 120px;
-  height: 120px;
-  background: #4facfe;
-  bottom: 20px;
-  right: 30px;
-  animation: blobMove 6s ease-in-out infinite alternate;
-}
-
-@keyframes blobMove {
-  0% {
-    transform: translate(0, 0) scale(1);
+  /* 上半部分容器 */
+  .card-top {
+    flex: 0 0 35%;
+    display: flex;
+    align-items: stretch;
+    padding: 10px 10px 0;
+    position: relative;
+    z-index: 1;
   }
 
-  100% {
-    transform: translate(15px, 15px) scale(1.12);
+  /* 下半部分容器 */
+  .card-bottom {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    padding: 0 5px 5px;
+    position: relative;
+    z-index: 1;
+    height: 200px;
   }
-}
 
-/* ===== 上半容器 ===== */
-.card-top {
-  flex: 0 0 35%;
-  display: flex;
-  align-items: stretch;
-  padding: 10px 10px 0;
-  position: relative;
-  z-index: 1;
-}
+  /* 通用单元格 */
+  .cell {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    min-width: 0;
+    min-height: 0; // 防止内容撑破 flex 容器
 
-/* ===== 下半容器 ===== */
-.card-bottom {
-  flex: 1; // ✅ 占满剩余空间
-  display: flex;
-  align-items: stretch;
-  padding: 0 5px 5px;
-  position: relative;
-  z-index: 1;
-  height: 200px; // ✅ 关键，配合 flex:1 和 padding-bottom 让它自适应高度
-}
-
-
-
-/* ===== 单元格 ===== */
-.cell {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  min-width: 0;
-  min-height: 0; // ✅ 加上，防止撑破
-}
-
-.cell-logo {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex: 1;
-}
-
-.cell-counter {
-  position: relative; // 必须
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 40px; // 为悬浮层留出底部空间
-
-  .floating-voucher-bar {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 36px;
-
-    // 背景：蓝色渐变
-    background: #3A6EFF;
-
-    // 底部圆角
-    border-radius: 0 0 12px 12px;
-
-    // 顶部凹陷弧线实现
-    // 顶部凹陷弧线
-    &::before {
-      content: "";
-      position: absolute;
-      top: -14px;
-      left: -1px;
-      width: calc(100% + 2px);
-      height: 14px;
-
-      // #3A6EFF → %233A6EFF（# 需要 URL 编码）
-      background-image: var(--voucher-svg);
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      filter: drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.3));
+    /* Logo 单元格 */
+    &-logo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex: 1;
     }
 
-    .voucher-content {
+    /* 计数器与优惠券条单元格 */
+    &-counter {
+      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      height: 100%;
+      padding-bottom: 40px; // 为悬浮层留出底部空间
 
-      .voucher-text {
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        letter-spacing: 1px;
+      .floating-voucher-bar {
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 36px;
+        background: #3A6EFF;
+        border-radius: 0 0 12px 12px;
+
+        /* 顶部凹陷弧线实现 */
+        &::before {
+          content: "";
+          position: absolute;
+          top: -14px;
+          left: -1px;
+          width: calc(100% + 2px);
+          height: 14px;
+          background-image: var(--voucher-svg);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          filter: drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.3));
+        }
+
+        .voucher-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          height: 100%;
+
+          .voucher-text {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+          }
+
+          .voucher-go-btn {
+            background: white;
+            color: var(--card-primary);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 2px 2px 2px 3px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            line-height: 15px;
+          }
+        }
+      }
+    }
+
+    /* 轮播图 1 (左侧网格) */
+    &-swiper1 {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: white;
+      border-radius: 10px;
+      margin: 2px;
+      overflow: visible;
+    }
+
+    /* 轮播图 2 (右侧大图) */
+    &-swiper2 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden; // 合并了原 CSS 中的属性
+      background: linear-gradient(to bottom, #add8e6, #ffffff);
+      background-size: cover;
+      border-radius: 10px;
+      padding-top: 5px;
+      margin: 2px;
+      position: relative;
+
+      /* 静态价格背景框 */
+      .static-price-frame {
+        position: absolute;
+        bottom: 15px;
+        background: linear-gradient(to right, #196cd2, #8ec1ea);
+        width: 90%;
+        height: 30px;
+        backdrop-filter: blur(4px);
+        border-radius: 8px;
+        pointer-events: none;
+        padding: 0 4px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        box-sizing: border-box;
+
+        .float-right {
+          color: white;
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 1;
+        }
       }
 
-      .voucher-go-btn {
-        background: white;
-        color: var(--card-primary);
-        font-size: 15px;
-        font-weight: 600;
-        padding: 2px 2px 2px 3px;
-        border-radius: 4px;
+      /* 浮动价格数值内容 */
+      .float-price-content {
+        position: absolute;
+        bottom: 15px;
+        width: 80%;
+        height: 30px;
         display: flex;
         align-items: center;
-        line-height: 15px;
+
+        .float-price-label {
+          color: white;
+          font-size: 12px;
+        }
+
+        .float-price-value {
+          color: white;
+          font-weight: bold;
+          font-size: 23px;
+        }
       }
     }
   }
-}
 
-.cell-swiper1 {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  background: white;
-  border-radius: 10px;
-  margin: 2px;
-  overflow: visible;
-}
-
-.cell-swiper2 {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 0;
-  overflow: visible;
-  background: linear-gradient(to bottom, #add8e6, #ffffff);
-  background-size: cover;
-  border-radius: 10px;
-  padding-top: 5px;
-  margin: 2px;
-}
-
-.cell-swiper2 {
-  position: relative;
-  overflow: hidden;
-
-  .static-price-frame {
-    position: absolute;
-    bottom: 15px;
-    background: linear-gradient(to right, #196cd2, #8ec1ea);
-    width: 90%;
-    height: 30px;
-    backdrop-filter: blur(4px);
-    border-radius: 8px;
-    pointer-events: none;
-    padding: 0 4px;
-
-    display: flex;
-    justify-content: flex-end; // 水平靠右对齐
-    align-items: center; // 垂直居中对齐
-    box-sizing: border-box; // 确保 padding 不会撑大 130px 的宽度
-
-    .float-right {
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      line-height: 1;
-    }
-  }
-
-
-  .float-price-content {
-    position: absolute;
-    bottom: 15px;
-    width: 80%;
-    height: 30px;
-    display: flex;
-    align-items: center;
-
-    .float-price-label {
-      color: white;
-      font-size: 12px;
-    }
-
-
-    .float-price-value {
-      color: white;
-      font-weight: bold;
-      font-size: 23px;
-    }
-
-
-  }
-}
-
-/* ===== 单张 Banner slide ===== */
-.banner-slide {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  img {
-    width: 70%;
-    height: 70%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .banner-title {
-    position: absolute;
-    width: 90%;
-    bottom: 50px;
-    font-size: 15px;
-    font-weight: 600;
-    color: black;
-    white-space: nowrap; // 强制不换行
-    overflow: hidden; // 超出部分隐藏
-    text-overflow: ellipsis; // 显示省略号
-  }
-}
-
-/* ===== 四宫格商品卡片 ===== */
-.product-card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  overflow: hidden;
-
-  img {
+  /* 单张横幅样式 */
+  .banner-slide {
     width: 100%;
-    flex: 1;
-    object-fit: cover;
-    display: block;
-    min-height: 0;
-  }
-
-  .product-info {
-    padding: 4px 6px;
+    height: 100%;
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
+    justify-content: center;
+
+    img {
+      width: 70%;
+      height: 70%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .banner-title {
+      position: absolute;
+      width: 90%;
+      bottom: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      color: black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
-
-  .product-name {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-
 }

@@ -1,4 +1,3 @@
-// src/page/module/Coupons/index.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";

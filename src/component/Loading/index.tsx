@@ -1,9 +1,8 @@
-// src/components/Loading/index.tsx
 import React from "react";
 import "./index.scss";
 
 interface LoadingProps {
-  text?: string;
+  text?: string; //加载文本，默认为“加载中...”
 }
 
 const Loading: React.FC<LoadingProps> = ({ text = "加载中..." }) => {

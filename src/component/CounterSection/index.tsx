@@ -54,10 +54,6 @@ const CounterSection: React.FC<CounterSectionProps> = ({
 
     // 延迟150ms执行动画，避免页面初始化时动画过于突兀
     const delay = setTimeout(() => {
-      /**
-       * 动画帧执行函数
-       * @param timestamp requestAnimationFrame传入的当前时间戳
-       */
       const animate = (timestamp: number): void => {
         // 初始化动画开始时间
         if (!startTimeRef.current) {
@@ -102,11 +98,9 @@ const CounterSection: React.FC<CounterSectionProps> = ({
   // 组件渲染：展示当前计数值和后缀
   return (
     <div className="counter-section">
-      <div className="counter-content">
-        <div className={`counter-number ${isFinished ? "finished" : ""}`}>
-          <span className="number-value">{count}</span>
-          <span className="number-suffix">{suffix}</span>
-        </div>
+      <div className={`counter-number ${isFinished ? "finished" : ""}`}>
+        <span className="number-value">{count}</span>
+        <span className="number-suffix">{suffix}</span>
       </div>
     </div>
   );
