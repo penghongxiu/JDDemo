@@ -73,7 +73,6 @@ const CounterSection: React.FC<CounterSectionProps> = ({
 
   return (
     <div className="counter-section">
-        {/* 数字内容 */}
         <div className="counter-content">
           <div className={`counter-number ${isFinished ? "finished" : ""}`}>
             <span className="number-value">{count}</span>

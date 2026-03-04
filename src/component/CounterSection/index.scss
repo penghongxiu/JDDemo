@@ -19,6 +19,7 @@
   align-items: center;
   justify-content: center;
   gap: 3px;
+  padding: 5px;
 }
 
 .counter-number {
@@ -29,11 +30,11 @@
 }
 
 .number-value {
-  font-size:50px;
+  font-size:30px;
   font-weight: 800;
   color: #eb0c0c;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
 }
 

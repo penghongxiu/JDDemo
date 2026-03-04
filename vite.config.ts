@@ -28,20 +28,17 @@ export default defineConfig((viteEnv) => {
   return {
     root,
     resolve: {
-      alias: [
-        {
-          find: /^src/,
-          replacement: src
-        },
-        { find: /^~/, replacement: '' },
-      ]
+      alias: {
+        "src": src,
+        "~": root,
+      }
     },
     plugins: [
       react({
         jsxRuntime: viteEnv.command === "build" ? "classic" : undefined
       }),
       // 注意：确保此插件在 react 插件之后
-      vitePluginServe(), 
+      vitePluginServe(),
       vitePluginImp({
         optimize: true,
         libList: [
@@ -79,13 +76,11 @@ export default defineConfig((viteEnv) => {
         },
       }
     },
-    // ======= 核心修改部分 =======
     server: {
-      host: 'localhost', // 👈 必须设为 localhost，强制插件生成基于 localhost 的图片链接
-      port: 5176,
-      https: false,      // 👈 显式关闭 https，防止生成 https://... 的错误链接
+      host: '192.168.100.198',
+      port: 5124,
       cors: true,
-      strictPort: true   // 如果 5176 被占用则报错，而不是随机换端口
+      strictPort: true
     }
   };
 });

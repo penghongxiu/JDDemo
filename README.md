@@ -1,7 +1,5 @@
 # Titan Vite
-
 现代开发框架，使用原生 ESM
-
 ## Available Scripts
 
 ```bash

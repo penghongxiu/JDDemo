@@ -4,7 +4,7 @@
 .adaptive-card {
   width: 100%;
   height: 100%;
-  background: #007aff;
+  background: #397FFF;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -74,11 +74,9 @@
   flex: 0 0 30%; // ✅ 44% → 30%，给下面更多空间
   display: flex;
   align-items: stretch;
-  padding: 14px 14px 0;
-  gap: 14px;
+  padding: 10px 10px 0;
   position: relative;
   z-index: 1;
-  margin: 2px;
 }
 
 /* ===== 下半容器 ===== */
@@ -107,13 +105,77 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  flex: 1.2;
+  flex: 1;
 }
-
 .cell-counter {
+  position: relative; // 必须
   display: flex;
-  align-items: stretch;
-  flex: 0.8;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 40px; // 为悬浮层留出底部空间
+
+  .floating-voucher-bar {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%); // 水平居中
+    width: 100%; // 根据需要调整宽度
+    height: 44px; // 高度
+    
+    // 背景：蓝色渐变
+    background: linear-gradient(180deg, #3d8aff 0%, #153ba4 100%);
+    
+    // 底部圆角
+    border-radius: 0 0 12px 12px;
+    
+    // 核心代码：使用内联 SVG clip-path 实现波浪顶
+    // 这个路径会绘制一个顶部带弧度的形状
+    clip-path: url(#wave-clip);
+    -webkit-clip-path: polygon(0 20%, 25% 0%, 50% 15%, 75% 0%, 100% 20%, 100% 100%, 0% 100%); 
+    // 上面这行是简易折线版，下面我们通过 mask 实现真正的平滑曲线
+    
+    // 真正的平滑波浪实现方案：
+    &::before {
+      content: "";
+      position: absolute;
+      top: 40px; // 向上偏移露出波浪
+      left: 0;
+      width: 100%;
+      height: 12px;
+      // 使用波浪状背景图
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5,73.84-4.36,147.54,16.88,218.2,35.26,69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%233d8aff'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
+    }
+
+    .voucher-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 100%;
+      padding: 6px 12px 0; // padding-top 略多一点，避开顶部波浪
+
+      .voucher-text {
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      .voucher-go-btn {
+        background: white;
+        color: #215eff;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 2px 2px 2px 3px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+      line-height: 15px;
+      }
+    }
+  }
 }
 
 .cell-swiper1 {
@@ -151,17 +213,14 @@
  .static-price-frame {
   position: absolute;
   bottom: 15px;
-  right: 12px; // 假设距离右侧边缘 12px
-  // z-index: 10; // 确保在 Swiper 之上
   background: linear-gradient(to right, #196cd2, #8ec1ea);
-  width: 150px;
+  width: 90%;
   height: 30px;
   backdrop-filter: blur(4px);
   border-radius: 8px;
   pointer-events: none;
   padding: 0 4px;
 
-  // --- 关键新增：使用 Flex 布局 ---
   display: flex;
   justify-content: flex-end; // 水平靠右对齐
   align-items: center;      // 垂直居中对齐
@@ -169,9 +228,9 @@
 
   .float-right {
     color: white;
-    font-size: 20px; // 建议减小一点，因为容器高度只有 30px
+    font-size: 20px; 
     font-weight: bold;
-    line-height: 1;  // 消除行高带来的多余边距
+    line-height: 1; 
   }
 }
 
@@ -179,7 +238,7 @@
   .float-price-content {
     position: absolute;
     bottom: 5px;
-    width: 130px;
+    width: 80%;
     height: 30px;
     display: flex;
     align-items: center;

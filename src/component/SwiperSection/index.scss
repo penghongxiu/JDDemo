@@ -89,21 +89,21 @@
   }
 
   .custom-bullet {
-    width: 5px;
-    height: 5px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(149, 146, 146, 0.3);
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(129, 127, 127, 0.6);
     }
   }
 
   .custom-bullet-active {
-    width: 5px;
-    height: 5px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
     background: red;
   }

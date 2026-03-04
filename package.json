@@ -10,7 +10,7 @@
   "scripts": {
     "dotenv:dev": "dotenv -v NODE_ENV=development -c development --",
     "dotenv:prod": "dotenv -v NODE_ENV=production -c production --",
-    "dev": "npm run dotenv:dev -- vite",
+    "dev": "vite --host localhost --port 5124",
     "build": "npm run dotenv:prod -- vite build",
     "watch": "npm run dotenv:prod -- vite build -w",
     "preview": "npm run dotenv:prod -- vite preview --mode=preview"

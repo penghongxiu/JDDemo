@@ -115,19 +115,19 @@ function SwiperSection<T extends SwiperItem>({
         pagination={
           showIndicator
             ? {
-                clickable: true,
-                el: `.swiper-section--${mode} .custom-pagination`,
-                bulletClass: "custom-bullet",
-                bulletActiveClass: "custom-bullet-active",
-              }
+              clickable: true,
+              el: `.swiper-section--${mode} .custom-pagination`,
+              bulletClass: "custom-bullet",
+              bulletActiveClass: "custom-bullet-active",
+            }
             : false
         }
         navigation={
           showArrows
             ? {
-                prevEl: `.swiper-section--${mode} .custom-prev`,
-                nextEl: `.swiper-section--${mode} .custom-next`,
-              }
+              prevEl: `.swiper-section--${mode} .custom-prev`,
+              nextEl: `.swiper-section--${mode} .custom-next`,
+            }
             : false
         }
         spaceBetween={0}
@@ -156,16 +156,16 @@ function SwiperSection<T extends SwiperItem>({
               </div>
             ) : (
               /* ====== single 模式：单张占满 ====== */
-            /* ====== single 模式：单张占满 ====== */
-<div className="single-layout">
-  {/* 新增：自营标签 (假设 item 中有 isSelfRun 属性) */}
-  {group[0].isSelfRun && (
-    <div className="tag-self-run">
-      自营
-    </div>
-  )}
-  {renderItem(group[0], slideIndex)}
-</div>
+              /* ====== single 模式：单张占满 ====== */
+              <div className="single-layout">
+                {/* 新增：自营标签 (假设 item 中有 isSelfRun 属性) */}
+                {group[0].isSelfRun && (
+                  <div className="tag-self-run">
+                    自营
+                  </div>
+                )}
+                {renderItem(group[0], slideIndex)}
+              </div>
             )}
           </SwiperSlide>
         ))}
