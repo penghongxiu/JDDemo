@@ -25,6 +25,7 @@ export interface SwiperSectionProps<T extends SwiperItem> {
   showIndicator?: boolean;
   showArrows?: boolean;
   onChange?: (index: number) => void;
+  onItemClick?: (item: T, index: number) => void;  // ✅ 新增点击回调
   className?: string;
   gridGap?: number;
 }
@@ -38,6 +39,7 @@ function SwiperSection<T extends SwiperItem>({
   showIndicator = true,
   showArrows = false,
   onChange,
+  onItemClick,  // ✅ 接收点击回调
   className = "",
   gridGap = 8,
 }: SwiperSectionProps<T>) {
@@ -84,18 +86,32 @@ function SwiperSection<T extends SwiperItem>({
           <SwiperSlide key={slideIndex}>
             {mode === "grid" ? (
               <div className="grid-layout" style={{ gap: `${gridGap}px` }}>
-                {group.map((item, itemIndex) => (
-                  <div key={item.id} className="grid-item">
-                    {renderItem(item, slideIndex * 4 + itemIndex)}
-                  </div>
-                ))}
+                {group.map((item, itemIndex) => {
+                  const actualIndex = slideIndex * 4 + itemIndex;
+                  return (
+                    <div
+                      key={item.id}
+                      className="grid-item"
+                      // ✅ 添加点击事件
+                      onClick={() => onItemClick?.(item, actualIndex)}
+                      style={{ cursor: onItemClick ? "pointer" : "default" }}
+                    >
+                      {renderItem(item, actualIndex)}
+                    </div>
+                  );
+                })}
                 {group.length < 4 &&
                   Array.from({ length: 4 - group.length }).map((_, i) => (
                     <div key={`empty-${i}`} className="grid-item grid-item--empty" />
                   ))}
               </div>
             ) : (
-              <div className="single-layout">
+              <div
+                className="single-layout"
+                // ✅ 添加点击事件
+                onClick={() => onItemClick?.(group[0], slideIndex)}
+                style={{ cursor: onItemClick ? "pointer" : "default" }}
+              >
                 {group[0].isSelfRun && (
                   <div className="tag-self-run">自营</div>
                 )}

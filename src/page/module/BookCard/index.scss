@@ -5,8 +5,18 @@
   width: 360px;
   height: 360px;
   flex-shrink: 0;
+   animation: contentFadeIn 0.6s ease;
 }
-
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .book-stack {
   position: relative;
   width: 100%;
@@ -79,7 +89,7 @@
   position: absolute;
   // ✅ 紧贴卡片右边缘，露出去
   top: 16px;
-  right: -32px;
+  right: -22px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -88,7 +98,7 @@
 
 .page-tab {
   position: relative;
-  width: 32px;
+  width: 22px;
   height: 40px;
   border: none;
   border-radius: 0;
@@ -121,15 +131,14 @@
 
   &.active {
     opacity: 1;
-    // ✅ 激活时宽度变大，更突出
-    width: 38px;
+    width: 28px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
     font-size: 13px;
   }
 
   &:hover:not(:disabled):not(.active) {
     opacity: 0.9;
-    width: 35px;
+    width: 25px;
   }
 
   &:disabled {

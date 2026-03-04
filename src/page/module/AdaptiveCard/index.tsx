@@ -5,6 +5,7 @@ import LogoSection from "src/component/LogoSection/index";
 import CounterSection from "src/component/CounterSection/index";
 import SwiperSection from "src/component/SwiperSection/index";
 import { RightOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
 import "./index.scss";
 
 // ===== 主题配置 =====
@@ -104,8 +105,19 @@ interface AdaptiveCardProps {
 
 // ==================== 主组件 ====================
 const AdaptiveCard: React.FC<AdaptiveCardProps> = ({ theme = "blue" }) => {
+    const navigate = useNavigate();
   const t = THEME_MAP[theme];
+  // ✅ 处理商品点击
+  const handleProductClick = (item: ProductItem | BannerItem) => {
+    navigate(`/product/${item.id}`, {
+      state: item,  // 传递完整数据
+    });
+  };
 
+    const handleGoClick = () => {
+    // 跳转到优惠券页面
+    navigate("/coupons");
+  };
   return (
     <div
       className="adaptive-card"
@@ -124,8 +136,8 @@ const AdaptiveCard: React.FC<AdaptiveCardProps> = ({ theme = "blue" }) => {
           <LogoSection />
         </div>
 
-        <div className="cell cell-counter">
-          <CounterSection from={1} to={100} duration={1000} suffix="元" />
+        <div className="cell cell-counter" >
+          <CounterSection from={1} to={100} duration={1000} suffix="元"  />
 
           {/* 悬浮凹型条 */}
           <div
@@ -138,7 +150,8 @@ const AdaptiveCard: React.FC<AdaptiveCardProps> = ({ theme = "blue" }) => {
           >
             <div className="voucher-content">
               <span className="voucher-text">领大额券包</span>
-              <div className="voucher-go-btn">
+              <div className="voucher-go-btn"   onClick={handleGoClick}  // ✅ 也可以点击
+                style={{ cursor: "pointer" }}>
                 GO <RightOutlined />
               </div>
             </div>
@@ -156,6 +169,7 @@ const AdaptiveCard: React.FC<AdaptiveCardProps> = ({ theme = "blue" }) => {
             loop={true}
             showIndicator={true}
             gridGap={6}
+             onItemClick={handleProductClick}  // ✅ 传入点击回调
             renderItem={(item) => (
               <div className="product-card">
                 <img src={item.img} alt={item.name} />
@@ -174,6 +188,7 @@ const AdaptiveCard: React.FC<AdaptiveCardProps> = ({ theme = "blue" }) => {
             autoPlay={3000}
             loop={true}
             showIndicator={true}
+             onItemClick={handleProductClick}  // ✅ 传入点击回调
             renderItem={(item) => (
               <div className="banner-slide">
                 <img src={item.img} alt={item.title} />

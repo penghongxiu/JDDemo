@@ -77,7 +77,7 @@ export default defineConfig((viteEnv) => {
       }
     },
     server: {
-      host: '192.168.100.198',
+      host: 'localhost',
       port: 5124,
       cors: true,
       strictPort: true
