@@ -80,7 +80,7 @@ const BookCard: React.FC = () => {
     };
   };
 
-  if (isLoading) return <Loading text="加载中..." />;
+  if (isLoading) return <Loading text="内容正在加载中，请稍等..." />;
 
   return (
     <div className="book-wrapper">
