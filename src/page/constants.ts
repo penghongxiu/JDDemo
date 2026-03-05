@@ -57,5 +57,5 @@ export const productList: ProductItem[] = [
   { id: 10, img: "/src/assets/img/grid/image10.png", name: "photo" },
   { id: 11, img: "/src/assets/img/grid/image11.png", name: "OPPO"  },
   { id: 12, img: "/src/assets/img/grid/image12.png", name: "三星"  },
+  { id: 13, img: "/src/assets/img/grid/image11.png", name: "华为"  },
 ];
-

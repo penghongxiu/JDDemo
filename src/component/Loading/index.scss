@@ -1,97 +1,13 @@
-// 定义颜色变量
-$overlay-bg: rgba(189, 194, 237, 0.6);
-$text-color: white;
-$page-bg: white;
-$shadow-color: rgba(0, 0, 0, 0.2);
-
-@mixin create-flip-keyframes($name) {
-  @keyframes #{$name} {
-    0%, 100% {
-      transform: rotateY(0deg);
-    }
-    50% {
-      transform: rotateY(-180deg);
-    }
-  }
-}
-
-// 调用 Mixin 生成三个动画
-@include create-flip-keyframes(flipPage1);
-@include create-flip-keyframes(flipPage2);
-@include create-flip-keyframes(flipPage3);
-
 .loading-overlay {
   position: fixed;
-  inset: 0; // 现代写法，等同于 top/left/bottom/right: 0
-  background: $overlay-bg;
+  inset: 0;
+  background: rgba(189, 194, 237, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  animation: fadeIn 0.3s ease;
-
-  .loading-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-
-    .book-loader {
-      position: relative;
-      width: 80px;
-      height: 100px;
-      perspective: 600px;
-
-      .book-page {
-        position: absolute;
-        width: 40px;
-        height: 100px;
-        background: $page-bg;
-        border-radius: 4px;
-        transform-origin: left center;
-        box-shadow: 0 4px 12px $shadow-color;
-        left: 0;
-      }
-
-      // 页面逻辑嵌套
-      .page-1 {
-        background: linear-gradient(to right, #f0f0f0, $page-bg);
-        animation: flipPage1 1.5s ease-in-out infinite;
-        z-index: 3;
-      }
-
-      .page-2 {
-        background: linear-gradient(to right, #e8e8e8, $page-bg);
-        animation: flipPage2 1.5s ease-in-out infinite;
-        animation-delay: 0.3s;
-        z-index: 2;
-      }
-
-      .page-3 {
-        background: linear-gradient(to right, #e0e0e0, $page-bg);
-        animation: flipPage3 1.5s ease-in-out infinite;
-        animation-delay: 0.6s;
-        z-index: 1;
-      }
-    }
 
     .loading-text {
-      color: $text-color;
+      color: white;
       font-size: 18px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      animation: pulse 1.5s ease-in-out infinite;
     }
-  }
-}
-
-// 其他全局动画
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }

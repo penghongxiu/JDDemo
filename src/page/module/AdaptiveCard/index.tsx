@@ -1,4 +1,3 @@
-// src/page/module/AdaptiveCard/index.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { RightOutlined } from '@ant-design/icons';
@@ -15,25 +14,21 @@ interface AdaptiveCardProps {
   theme?: CardTheme;
 }
 
-/**
- * 自适应业务卡片组件
- * 包含：Logo、动态计数、优惠券入口、网格轮播与大图轮播
- */
 const AdaptiveCard: React.FC<AdaptiveCardProps> = ({ theme = "blue" }) => {
   const navigate = useNavigate();
   const t = THEME_MAP[theme];
 
-  /** 处理商品点击跳转详情 */
+//  处理商品点击跳转详情 
   const handleProductClick = (item: ProductItem | BannerItem) => {
     navigate(`/product/${item.id}`, { state: item });
   };
 
-  /** 处理优惠券条点击跳转 */
+  // 处理优惠券条点击跳转
   const handleGoClick = () => {
     navigate("/coupons");
   };
 
-  /** 生成动态 SVG 背景 URL（颜色改变） */
+//  生成动态 SVG 背景 URL（颜色改变）
   const voucherSvgUrl = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 14' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q187.5,28 375,0 L375,14 L0,14 Z' fill='${t.voucherSvg}'/%3E%3C/svg%3E")`;
 
   return (

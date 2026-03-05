@@ -1,39 +1,15 @@
 // src/components/SwiperSection/index.tsx
 import React, { useMemo, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ReactNode } from "react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import { SwiperItem, SwiperSectionProps } from "../type";
 import "./index.scss";
 
-
-/** 轮播数据基础接口 */
-export interface SwiperItem {
-  id: string | number;
-  [key: string]: any;
-}
-
-/** 轮播模式：single-单图模式，grid-四宫格模式 */
-export type SwiperLayoutMode = "single" | "grid";
-
-/** 组件属性接口 */
-export interface SwiperSectionProps<T extends SwiperItem> {
-  items: T[];                                // 原始数据列表
-  mode?: SwiperLayoutMode;                   // 展示模式
-  renderItem: (item: T, index: number) => ReactNode; // 自定义渲染函数
-  autoPlay?: boolean | number;               // 自动播放配置
-  loop?: boolean;                            // 是否循环
-  showIndicator?: boolean;                   // 是否显示指示点
-  showArrows?: boolean;                      // 是否显示切换箭头
-  onChange?: (index: number) => void;        // 切换回调
-  onItemClick?: (item: T, index: number) => void; // 点击回调
-  className?: string;                        // 自定义类名
-  gridGap?: number;                          // 格子间距 (仅grid模式)
-}
 
 /**
  * 通用轮播组件：支持单图展示与四宫格展示
@@ -45,7 +21,6 @@ function SwiperSection<T extends SwiperItem>({
   autoPlay = true,
   loop = true,
   showIndicator = true,
-  showArrows = false,
   onChange,
   onItemClick, 
   className = "",
@@ -53,9 +28,19 @@ function SwiperSection<T extends SwiperItem>({
 }: SwiperSectionProps<T>) {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  /** 核心逻辑：根据模式处理数据分组 */
+  // 1. 直接计算分组，不再使用 useMemo
+  // const getSlides = () => {
+  //   if (mode !== "grid") return items.map(item => [item]);
+  //   const groups: T[][] = [];
+  //   for (let i = 0; i < items.length; i += 4) {
+  //     groups.push(items.slice(i, i + 4));
+  //   }
+  //   return groups;
+  // };
+  // const slides = getSlides();
+
+  //2.useMemo
   const slides = useMemo(() => {
-    // 如果是网格模式，每 4 个数据分为一组（一屏显示四个）
     if (mode === "grid") {
       const groups: T[][] = [];
       for (let i = 0; i < items.length; i += 4) {
@@ -63,11 +48,10 @@ function SwiperSection<T extends SwiperItem>({
       }
       return groups;
     }
-    // 单图模式，每个数据独立作为一组
     return items.map((item) => [item]);
   }, [items, mode]);
 
-  /** 自动播放参数配置 */
+  // 自动播放参数配置
   const autoPlayConfig = useMemo(() => {
     if (!autoPlay) return false;
     return {
@@ -87,9 +71,9 @@ function SwiperSection<T extends SwiperItem>({
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={(swiper) => onChange?.(swiper.realIndex)}
         autoplay={autoPlayConfig}
+        // autoplay={autoPlay ? { delay: 3000, disableOnInteraction: false } : false}
         loop={loop && slides.length > 1}
         pagination={showIndicator && slides.length > 1 ? { clickable: true } : false}
-        navigation={showArrows}
         spaceBetween={0}
         slidesPerView={1}
         speed={500}
@@ -124,7 +108,6 @@ function SwiperSection<T extends SwiperItem>({
               <div
                 className="single-layout"
                 onClick={() => onItemClick?.(group[0], slideIndex)}
-                style={{ cursor: onItemClick ? "pointer" : "default" }}
               >
                 {/* 支持自营标签展示 */}
                 {group[0].isSelfRun && (

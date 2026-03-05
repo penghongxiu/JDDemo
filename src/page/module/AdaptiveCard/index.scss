@@ -126,7 +126,7 @@
       align-items: center;
       flex-direction: column;
       min-height: 0;
-      overflow: hidden; // 合并了原 CSS 中的属性
+      overflow: hidden; 
       background: linear-gradient(to bottom, #add8e6, #ffffff);
       background-size: cover;
       border-radius: 10px;
@@ -190,7 +190,6 @@
     justify-content: center;
 
     img {
-      width: 70%;
       height: 70%;
       object-fit: cover;
       display: block;

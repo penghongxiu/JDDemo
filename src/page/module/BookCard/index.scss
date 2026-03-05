@@ -1,155 +1,78 @@
-// 定义变量，方便统一修改
-$card-radius: 12px;
 $anim-speed: 0.7s;
-$transition-base: 0.35s;
-$shadow-color: rgba(0, 0, 0, 0.25);
 
 .book-wrapper {
   position: relative;
   width: 360px;
   height: 360px;
-  flex-shrink: 0;
-  animation: contentFadeIn 0.6s ease;
+  animation: fadeIn 0.6s ease;
 
-  // 堆叠容器
   .book-stack {
     position: relative;
     width: 100%;
     height: 100%;
 
-    // 每张卡片基础样式
     .stack-card {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: $card-radius;
+      border-radius: 12px;
       overflow: hidden;
-      transition: 
-        transform $transition-base cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        filter $transition-base ease,
-        box-shadow $transition-base ease;
-      box-shadow: 0 8px 24px $shadow-color;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      // 这里的 transition 负责处理非翻页时的平滑堆叠移动
+      transition: transform 0.4s ease, filter 0.4s ease;
 
-      // 翻出状态
+      // 翻出动画：左翻消失
       &.card-exit {
         animation: flipOut $anim-speed ease-in forwards;
-        transition: none !important;
         pointer-events: none;
       }
 
-      // 翻入状态
+      // 翻入动画：从右翻回来
       &.card-enter {
         animation: flipIn $anim-speed ease-out forwards;
-        transition: none !important;
         pointer-events: none;
       }
     }
   }
-
-  // 右上角书签导航
+// 右侧导航标签
   .page-tabs {
     position: absolute;
     top: 40px;
     right: -22px;
     display: flex;
     flex-direction: column;
-    gap: 0;
 
     .page-tab {
-      position: relative;
-      width: 22px;
+      width: 42px;
       height: 20px;
-      border: none;
-      border-radius: 0;
       background: var(--tab-color);
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s ease;
-      box-shadow: 2px 2px 6px $shadow-color;
+      border: none;
       opacity: 0.7;
+      cursor: pointer;
+      transition: all 0.2s;
 
-      // 标签间分割线
-      & + .page-tab {
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
-      }
+      & + .page-tab { border-top: 1px solid rgba(255, 255, 255, 0.2); }
+      &:first-child { border-radius: 0 8px 0 0; }
+      &:last-child { border-radius: 0 0 8px 0; }
 
-      // 顶部圆角
-      &:first-child {
-        border-radius: 0 8px 0 0;
-      }
-
-      // 底部圆角
-      &:last-child {
-        border-radius: 0 0 8px 0;
-      }
-
-      // 激活状态
-      &.active {
-        opacity: 1;
-        width: 28px;
-        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
-        font-size: 13px;
-      }
-
-      // 悬停状态
-      &:hover:not(:disabled):not(.active) {
-        opacity: 0.9;
-        width: 25px;
-      }
-
-      // 禁用状态
-      &:disabled {
-        cursor: not-allowed;
-      }
+      &.active { opacity: 1; width: 28px; }
     }
   }
 }
 
-// 动画关键帧定义
-@keyframes contentFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes flipOut {
-  0% {
-    transform: perspective(800px) rotateY(0deg) translateX(0);
-    opacity: 1;
-  }
-  30% {
-    transform: perspective(800px) rotateY(-30deg) translateX(-5%);
-    opacity: 1;
-  }
-  100% {
-    transform: perspective(800px) rotateY(-110deg) translateX(-30%) scale(0.8);
-    opacity: 0;
-  }
+  0% { transform: perspective(800px) rotateY(0) translateX(0); opacity: 1; }
+  100% { transform: perspective(800px) rotateY(-110deg) translateX(-30%) scale(0.8); opacity: 0; }
 }
 
 @keyframes flipIn {
-  0% {
-    transform: perspective(800px) rotateY(110deg) translateX(30%) scale(0.8);
-    opacity: 0;
-  }
-  70% {
-    transform: perspective(800px) rotateY(-10deg) translateX(-2%);
-    opacity: 1;
-  }
-  100% {
-    transform: perspective(800px) rotateY(0deg) translateX(0) scale(1);
-    opacity: 1;
-  }
+  0% { transform: perspective(800px) rotateY(110deg) translateX(30%) scale(0.8); opacity: 0; }
+  100% { transform: perspective(800px) rotateY(0) translateX(0) scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
